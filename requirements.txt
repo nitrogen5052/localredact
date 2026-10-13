@@ -1,0 +1,9 @@
+# Pinned: the engine reaches into opf internals, so versions are fixed on purpose.
+opf @ git+https://github.com/openai/privacy-filter@f7f00ca7fb869683eb732c010299d901457f19c3
+mlx-embeddings @ git+https://github.com/Blaizzy/mlx-embeddings@9b28270be81211f2b8daed0041aec65ea5dc4b28
+mlx==0.32.3
+mlx-lm==0.32.0
+torch==2.14.1
+tiktoken==0.14.0
+numpy==2.5.4
+huggingface-hub==2.2.0
