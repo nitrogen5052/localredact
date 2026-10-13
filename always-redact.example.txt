@@ -1,4 +1,4 @@
-# redact-mac — words that are ALWAYS redacted, one per line.
+# localredact — words that are ALWAYS redacted, one per line.
 # Matching ignores capitals (Smith = SMITH = smith) and only hits whole words.
 # Add what the model misses: your name and its variants, street, employer, relatives.
 # Lines starting with # are ignored.

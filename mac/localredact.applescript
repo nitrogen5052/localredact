@@ -30,11 +30,11 @@ on processFiles(theFiles)
 		set progress completed steps to i
 	end repeat
 	if (count of outputs) > 0 then
-		display notification ((count of outputs) as text) & " file(s) saved to Downloads" with title "redact-mac — done" sound name "Glass"
+		display notification ((count of outputs) as text) & " file(s) saved to Downloads" with title "localredact — done" sound name "Glass"
 		do shell script "open -R " & quoted form of (item -1 of outputs)
 		repeat with o in outputs
 			do shell script "open -e " & quoted form of o
 		end repeat
 	end if
-	if failures is not "" then display dialog failures with title "redact-mac" buttons {"OK"} default button 1 with icon caution
+	if failures is not "" then display dialog failures with title "localredact" buttons {"OK"} default button 1 with icon caution
 end processFiles

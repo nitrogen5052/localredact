@@ -25,9 +25,9 @@ fi
 out="$OUT_DIR/$base (redacted).txt"
 n=2; while [ -e "$out" ]; do out="$OUT_DIR/$base (redacted $n).txt"; n=$((n+1)); done
 
-if ! "$PYTHON" -I "$here/redact.py" "$txt" "$tmp/out.txt" "$LIST" 2> "$tmp/err.txt"; then
+if ! "$PYTHON" -I "$here/engine_mlx.py" "$txt" "$tmp/out.txt" "$LIST" 2> "$tmp/err.txt"; then
   cat "$tmp/err.txt" >&2
-  echo "redact-mac failed on $name:"; tail -3 "$tmp/err.txt"; exit 4
+  echo "localredact failed on $name:"; tail -3 "$tmp/err.txt"; exit 4
 fi
 mv "$tmp/out.txt" "$out"
 echo "$out"

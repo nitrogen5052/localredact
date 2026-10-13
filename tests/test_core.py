@@ -1,13 +1,14 @@
-"""Tests for redact.py. Unit tests need only the standard library; the model test
-runs when the installed environment and model are present (python -m unittest)."""
+"""Tests for the shared core, plus the Mac engine end to end when MLX and its model are installed.
+Unit tests need only the standard library: python -m unittest discover -s tests"""
 import importlib.util
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "engine"))
-import redact  # noqa: E402
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "core"), str(ROOT / "mac")]
+import redact_core as redact  # noqa: E402
 
 FAKE = "Hi, I am Jane Testperson. Email jane.test@example.com or call 555-123-4567.\n"
 
@@ -51,21 +52,23 @@ class ApplySpans(unittest.TestCase):
         self.assertEqual(redact.apply_spans("abc", []), "abc")
 
 
-def _model_available():
+def _mlx_model_available():
     if importlib.util.find_spec("mlx_embeddings") is None:
         return False
     try:
+        import engine_mlx
         from huggingface_hub import snapshot_download
-        snapshot_download(redact.MLX_REPO, revision=redact.MLX_REVISION, local_files_only=True)
+        snapshot_download(engine_mlx.MLX_REPO, revision=engine_mlx.MLX_REVISION, local_files_only=True)
         return True
     except Exception:
         return False
 
 
-@unittest.skipUnless(_model_available(), "installed environment and model required")
-class Model(unittest.TestCase):
+@unittest.skipUnless(_mlx_model_available(), "Mac MLX environment and model required")
+class MacModel(unittest.TestCase):
     def test_fake_record_is_redacted(self):
-        out = redact.redact(FAKE + "STATEMENT FOR JOHN QWERTYSON\n", ["Testperson"])
+        import engine_mlx
+        out = engine_mlx.redact(FAKE + "STATEMENT FOR JOHN QWERTYSON\n", ["Testperson"])
         for leaked in ("Jane", "Testperson", "jane.test@example.com", "555-123-4567", "QWERTYSON"):
             self.assertNotIn(leaked, out)
         self.assertIn("<PRIVATE_EMAIL>", out)
