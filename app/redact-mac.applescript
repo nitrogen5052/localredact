@@ -1,11 +1,14 @@
+-- Opening the app shows a Finder file picker; there is deliberately no drop-on-icon handler.
+property supportedTypes : {"public.text", "com.adobe.pdf", "org.openxmlformats.wordprocessingml.document", "com.microsoft.word.doc", "org.oasis-open.opendocument.text", "com.apple.rtfd", "com.apple.webarchive"}
+
 on run
-	set theFiles to choose file with prompt "Choose file(s) to redact:" with multiple selections allowed
+	try
+		set theFiles to choose file with prompt "Choose file(s) to redact:" of type supportedTypes default location (path to downloads folder) with multiple selections allowed
+	on error number -128 -- Cancel
+		return
+	end try
 	processFiles(theFiles)
 end run
-
-on open theFiles
-	processFiles(theFiles)
-end open
 
 on processFiles(theFiles)
 	set scriptPath to POSIX path of (path to resource "redact.sh")

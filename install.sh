@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install redact-mac: Python environment, model (~2.8 GB), and the drag-and-drop app.
+# Install redact-mac: Python environment, model (~2.8 GB), and the redact-mac app.
 # Overridable: REDACT_MAC_HOME (environment), APP_DIR (where the app and list go), OUT_DIR (results).
 set -euo pipefail
 repo="$(cd "$(dirname "$0")" && pwd)"
@@ -24,7 +24,7 @@ snapshot_download('mlx-community/openai-privacy-filter-bf16', revision='c855bd14
 echo "3/3 App → $app"
 mkdir -p "$app_dir"
 rm -rf "$app"
-osacompile -o "$app" "$repo/app/droplet.applescript"
+osacompile -o "$app" "$repo/app/redact-mac.applescript"
 res="$app/Contents/Resources"
 cp "$repo/app/redact.sh" "$repo/engine/redact.py" "$res/"
 cp -R "$repo/engine/opf_checkpoint" "$res/"
@@ -37,5 +37,5 @@ PATHS
 [ -e "$list" ] || cp "$repo/always-redact.example.txt" "$list"
 
 echo
-echo "Done. Drag files onto $app (add it to your Dock)."
+echo "Done. Open $app (add it to your Dock) and choose files to redact."
 echo "Words that must always be removed (your name, street…): $list"

@@ -1,6 +1,6 @@
 # redact-mac
 
-Drag a document onto an icon; get a copy with names, emails, phone numbers, addresses,
+Open the app, pick a document in Finder, and get a copy with names, emails, phone numbers, addresses,
 account numbers and dates replaced by labels. Runs entirely on your Mac's GPU.
 Nothing is uploaded.
 
@@ -31,7 +31,7 @@ redact-mac fixes all three:
 |---|---|---|
 | ~51 KB bank statement, M4 MacBook Air 16 GB | ~8 min¹ | ~20 s |
 | Account holder's ALL-CAPS name left visible | 12 lines | 0 lines |
-| Interface | terminal | drag-and-drop app |
+| Interface | terminal | Mac app with a Finder file picker |
 
 ¹ That CPU run overlapped with another job for part of the time; treat it as "minutes", not an exact figure.
 
@@ -67,7 +67,7 @@ This creates:
 
 | What | Where |
 |---|---|
-| App | `~/Applications/redact-mac.app`; drag it to your Dock |
+| App | `~/Applications/redact-mac.app`; add it to your Dock |
 | Your always-redact list | `~/Applications/redact-mac — Always redact.txt` |
 | Python environment | `~/.local/share/redact-mac/` |
 | Model (2.8 GB) | `~/.cache/huggingface/` |
@@ -80,8 +80,8 @@ Uninstall: `./uninstall.sh` (add `--all` to also delete your list).
 
 ## Use
 
-Drop one or more files on the icon (or double-click it and choose files). A progress
-window shows; results open when done. Typically 15–30 seconds per file.
+Open the app and choose one or more files in the Finder window (it starts in Downloads;
+unsupported file types are greyed out). A progress window shows; results open when done. Typically 15–30 seconds per file.
 
 ## Limits: read this
 
