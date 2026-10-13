@@ -59,9 +59,13 @@ redact-mac fixes all three:
 Requires an Apple-silicon Mac, [uv](https://docs.astral.sh/uv/) (`brew install uv`) and ~4 GB free.
 
 ```bash
-git clone https://github.com/<you>/redact-mac && cd redact-mac
-./install.sh
+git clone https://github.com/nitrogen5052/redact-mac && cd redact-mac
+bash install.sh
 ```
+
+No git? Download the ZIP from GitHub (Code → Download ZIP), unzip it, open Terminal in
+that folder and run `bash install.sh`. First install downloads ~4 GB (Python packages + model)
+and takes a few minutes; after that it works offline.
 
 This creates:
 
@@ -76,7 +80,7 @@ This creates:
 The list sits next to the app because macOS blocks apps from reading ~/Documents without
 a permission grant.
 
-Uninstall: `./uninstall.sh` (add `--all` to also delete your list).
+Uninstall: `bash uninstall.sh` (add `--all` to also delete your list).
 
 ## Use
 
